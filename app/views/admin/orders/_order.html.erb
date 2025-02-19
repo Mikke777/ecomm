@@ -15,4 +15,12 @@
     <strong class="block font-medium mb-1">Address:</strong>
     <%= order.address %>
   </p>
+  <% if order.order_products.any? %>
+    <strong class="block font-medium mb-1">Products:</strong>
+    <% order.order_products.each do |op|  %>
+      <%= op.product.name %>
+      <%= op.size %>
+      <%= op.quantity %>
+    <% end %>
+  <% end %>
 </div>
