@@ -3,7 +3,11 @@ class Admin::ProductsController < AdminController
 
   # GET /admin/products or /admin/products.json
   def index
-    @admin_products = Product.all
+    if params[:query].present?
+      @admin_products = Product.where("name LIKE ?", "%#{params[:query]}%")
+    else
+      @admin_products = Product.all
+    end
   end
 
   # GET /admin/products/1 or /admin/products/1.json
