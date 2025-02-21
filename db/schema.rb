@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_02_19_105045) do
+ActiveRecord::Schema[7.2].define(version: 2025_02_21_220501) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -79,6 +79,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_19_105045) do
     t.string "address"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "checkout_session_id"
+    t.index ["checkout_session_id"], name: "index_orders_on_checkout_session_id", unique: true
   end
 
   create_table "products", force: :cascade do |t|
