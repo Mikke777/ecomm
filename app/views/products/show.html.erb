@@ -3,7 +3,7 @@
 <div class="flex justify-center gap-20 py-10">
   <div class="flex flex-wrap max-w-lg">
     <% @product.images.each do |image| %>
-      <%= image_tag image, class: "w-64 h-64 object-cover" %>
+      <%= cl_image_tag image.key, class: "w-64 h-64 object-cover" %>
     <% end %>
   </div>
 

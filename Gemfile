@@ -68,4 +68,4 @@ gem 'dotenv-rails', groups: [:development, :test]
 
 gem "pagy", "~> 9.3"
 
-gem "aws-sdk-s3", require: false
+gem "cloudinary"

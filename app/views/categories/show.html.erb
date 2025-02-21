@@ -20,7 +20,11 @@
       <% @products.each do |product| %>
         <%= link_to product_path(product) do %>
           <div class="max-w-xs flex flex-col p-4 justify-center items-center">
-            <%= product.images.first ? image_tag(product.images.first, class: "rounded w-62 h-62 object-cover") : image_tag('noimage.jpg', class: "w-62 h-62 object-cover") %>
+            <% if product.images.attached? %>
+              <%= cl_image_tag product.images.first.key, class: "rounded w-62 h-62 object-cover" %>
+            <% else %>
+              <%= image_tag 'noimage.jpg', class: "w-62 h-62 object-cover" %>
+            <% end %>
             <p class="mt-6 font-medium text-gray-800">
               <%= product.name %>
             </p>
