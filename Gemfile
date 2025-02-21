@@ -66,10 +66,10 @@ gem "font-awesome-sass", "~> 6.5.1"
 
 gem "stripe", "~> 13.4"
 
+gem 'stripe_event'
+
 gem 'dotenv-rails', groups: [:development, :test]
 
 gem "pagy", "~> 9.3"
 
 gem "cloudinary"
-
-
