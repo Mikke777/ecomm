@@ -69,3 +69,5 @@ gem 'dotenv-rails', groups: [:development, :test]
 gem "pagy", "~> 9.3"
 
 gem "cloudinary"
+
+gem 'zeitwerk', '~> 2.6'
