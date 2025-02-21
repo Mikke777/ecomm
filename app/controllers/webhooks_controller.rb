@@ -11,10 +11,11 @@ class WebhooksController < ApplicationController
     begin
       event = Stripe::Webhook.construct_event(payload, sig_header, endpoint_secret)
     rescue JSON::ParserError => e
+      Rails.logger.error "Invalid payload: #{e.message}"
       render json: { error: 'Invalid payload' }, status: 400
       return
     rescue Stripe::SignatureVerificationError => e
-      puts "Webhook signature verification failed."
+      Rails.logger.error "Webhook signature verification failed: #{e.message}"
       render json: { error: 'Invalid signature' }, status: 400
       return
     end
@@ -23,7 +24,7 @@ class WebhooksController < ApplicationController
     when 'checkout.session.completed'
       handle_checkout_session_completed(event.data.object)
     else
-      puts "Unhandled event type: #{event.type}"
+      Rails.logger.info "Unhandled event type: #{event.type}"
     end
 
     render json: { message: 'success' }
@@ -33,19 +34,21 @@ class WebhooksController < ApplicationController
 
   def handle_checkout_session_completed(session)
     shipping_details = session["shipping_details"]
-    puts "Session: #{session}"
-    if shipping_details
-      address = "#{shipping_details['address']['line1']} #{shipping_details['address']['city']}, #{shipping_details['address']['state']} #{shipping_details["address"]["postal_code"]}"
-    else
-      address = ""
-    end
+    Rails.logger.info "Session: #{session}"
+    address = if shipping_details
+                "#{shipping_details['address']['line1']} #{shipping_details['address']['city']}, #{shipping_details['address']['state']} #{shipping_details['address']['postal_code']}"
+              else
+                ""
+              end
 
     # Find the order by session ID or other identifier
     order = Order.find_by(checkout_session_id: session.id)
     if order
       order.update!(customer_email: session["customer_details"]["email"], total: session["amount_total"], address: address, fulfilled: true)
+      Rails.logger.info "Order updated: #{order.inspect}"
     else
       order = Order.create!(customer_email: session["customer_details"]["email"], total: session["amount_total"], address: address, fulfilled: true, checkout_session_id: session.id)
+      Rails.logger.info "Order created: #{order.inspect}"
     end
 
     full_session = Stripe::Checkout::Session.retrieve({
@@ -60,7 +63,7 @@ class WebhooksController < ApplicationController
       # Check if the product exists in the database
       db_product = Product.find_by(id: product_id)
       if db_product.nil?
-        puts "Product with ID #{product_id} not found in the database."
+        Rails.logger.warn "Product with ID #{product_id} not found in the database."
         next
       end
 
