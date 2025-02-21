@@ -12,7 +12,7 @@ amazon:
   access_key_id: <%= ENV['AWS_ACCESS_KEY_ID'] %>
   secret_access_key: <%= ENV['AWS_SECRET_ACCESS_KEY'] %>
   region: eu-north-1
-  bucket: grifonbucket-development<%= Rails.env %>
+  bucket: grifonbucket-development-<%= Rails.env %>
 
 # Remember not to checkin your GCS keyfile to a repository
 # google:
