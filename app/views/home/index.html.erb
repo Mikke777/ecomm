@@ -12,7 +12,7 @@
           <%= category.name %>
         </h2>
         <% if category.image.attached? %>
-          <%= cl_image_tag category.image.key, class: "max-w-lg" %>
+          <%= cl_image_tag category.image.key, class: "w-112 h-112" %>
         <% else %>
           <%= image_tag 'noimage.jpg', class: "w-128 h-128 object-cover" %>
         <% end %>
