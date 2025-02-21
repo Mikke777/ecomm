@@ -65,3 +65,5 @@ gem "font-awesome-sass", "~> 6.5.1"
 gem "stripe", "~> 13.4"
 
 gem 'dotenv-rails', groups: [:development, :test]
+
+gem "pagy", "~> 9.3"
