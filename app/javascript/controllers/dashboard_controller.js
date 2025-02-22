@@ -18,7 +18,7 @@ export default class extends Controller {
         datasets: [{
           label: 'Revenue $',
           data: data,
-          borderColor: 'rgba(75, 192, 192, 1)',
+          borderColor: 'rgba(68,127,63,255)',
           borderWidth: 3,
           fill: true,
         }]
