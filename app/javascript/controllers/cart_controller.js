@@ -69,6 +69,7 @@ export default class extends Controller {
     }).then(response => {
         if (response.ok) {
           response.json().then(body => {
+            localStorage.removeItem("cart")
             window.location.href = body.url
           })
         } else {

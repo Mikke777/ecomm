@@ -39,6 +39,7 @@ class CheckoutsController < ApplicationController
   end
 
   def success
+    session[:cart] = nil
     render :success
   end
 
