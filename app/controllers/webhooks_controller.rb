@@ -44,10 +44,10 @@ class WebhooksController < ApplicationController
     # Find the order by session ID or other identifier
     order = Order.find_by(checkout_session_id: session.id)
     if order
-      order.update!(customer_email: session["customer_details"]["email"], total: session["amount_total"], address: address, fulfilled: true)
+      order.update!(customer_email: session["customer_details"]["email"], total: session["amount_total"], address: address, fulfilled: false)
       Rails.logger.info "Order updated: #{order.inspect}"
     else
-      order = Order.create!(customer_email: session["customer_details"]["email"], total: session["amount_total"], address: address, fulfilled: true, checkout_session_id: session.id)
+      order = Order.create!(customer_email: session["customer_details"]["email"], total: session["amount_total"], address: address, fulfilled: false, checkout_session_id: session.id)
       Rails.logger.info "Order created: #{order.inspect}"
     end
 
