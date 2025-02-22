@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "about/index"
   namespace :admin do
     resources :orders
     resources :products do
@@ -31,6 +32,7 @@ Rails.application.routes.draw do
   resources :products, only: [:show]
   get "admin" => "admin#index"
   get "cart" => "carts#show"
+  get "about" => "about#index"
   post "checkout" => "checkouts#create"
   get "success" => "checkouts#success"
   get "cancel" => "checkouts#cancel"
