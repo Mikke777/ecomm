@@ -30,7 +30,7 @@
                 <th scope="col" class="text-sm font-medium text-gray-800 px-6 py-4 text-left">
                   Name
                 </th>
-                <th scope="col" class="text-sm font-medium text-gray-800 px-6 py-4 text-left">
+                <th scope="col" class="text-sm font-medium text-gray-800 px-6 py-4 text-left w-1/3">
                   Description
                 </th>
                 <th scope="col" class="text-sm font-medium text-gray-800 px-6 py-4 text-left">
@@ -54,7 +54,7 @@
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 underline">
                   <%= link_to p.name, edit_admin_product_path(p) %>
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 truncate w-1/3" style="max-width: 200px;">
                   <%= p.description %>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
