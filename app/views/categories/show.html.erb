@@ -1,35 +1,37 @@
-<div class="min-h-screen flex justify-center">
-  <div class="flex flex-wrap flex-col mt-6">
-    <h2 class="text-lg text-gray-800">
-      Filter
-    </h2>
-    <%= form_with url: category_path(@category), method: :get do |f| %>
-      <%= f.number_field :min, placeholder: "Min Price", class: "border border-gray-800 rounded-md p-2 w-32" %>
-      <%= f.number_field :max, placeholder: "Max Price", class: "border border-gray-800 rounded-md p-2 w-32" %>
-      <%= f.submit "Filter", class: "bg-gray-800 text-white rounded-md p-2 mt-2 w-32" %>
-    <% end %>
-    <%= form_with url: category_path(@category), method: :get, class:"flex flex-col" do |form| %>
-      <%= form.submit "Clear", class: "bg-gray-800 text-white rounded-md p-2 mt-2 cursor-pointer" %>
-    <% end %>
-  </div>
-  <div class="flex flex-wrap mt-6 gap-10 flex-grow justify-center items-start">
-    <% if @products.empty? %>
-      <p class="text-2xl text-left text-gray-800">No products found</p>
-    <% else %>
-      <% @products.each do |product| %>
-        <%= link_to product_path(product) do %>
-          <div class="max-w-xs flex flex-col p-4 justify-center items-center">
-            <% if product.images.attached? %>
-              <%= cl_image_tag product.images.first.key, class: "rounded w-62 h-62 object-cover" %>
-            <% else %>
-              <%= image_tag 'noimage.jpg', class: "w-62 h-62 object-cover" %>
-            <% end %>
-            <p class="mt-6 font-medium text-gray-800">
-              <%= product.name %>
-            </p>
-          </div>
+<div class="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-7xl mx-auto space-y-8">
+    <div class="flex flex-col md:flex-row justify-between items-start">
+      <div class="flex flex-col mt-6 md:mt-0 md:w-1/4">
+        <h2 class="text-lg font-semibold text-gray-800 mb-4">Filter</h2>
+        <%= form_with url: category_path(@category), method: :get do |f| %>
+          <%= f.number_field :min, placeholder: "Min Price", class: "border border-gray-800 rounded-md p-2 w-full mb-2" %>
+          <%= f.number_field :max, placeholder: "Max Price", class: "border border-gray-800 rounded-md p-2 w-full mb-2" %>
+          <%= f.submit "Filter", class: "bg-gray-800 text-white rounded-md p-2 w-full mb-2" %>
         <% end %>
-      <% end %>
-    <% end %>
+        <%= form_with url: category_path(@category), method: :get, class:"flex flex-col" do |form| %>
+          <%= form.submit "Clear", class: "bg-gray-800 text-white rounded-md p-2 w-full cursor-pointer" %>
+        <% end %>
+      </div>
+      <div class="flex flex-col gap-10 justify-center items-center md:w-3/4">
+        <% if @products.empty? %>
+          <p class="text-2xl text-left text-gray-800">No products found</p>
+        <% else %>
+          <% @products.each do |product| %>
+            <%= link_to product_path(product) do %>
+              <div class="max-w-xs flex flex-col p-4 justify-center items-center bg-white rounded-lg shadow-md">
+                <% if product.images.attached? %>
+                  <%= cl_image_tag product.images.first.key, class: "rounded w-62 h-62 object-cover" %>
+                <% else %>
+                  <%= image_tag 'noimage.jpg', class: "w-62 h-62 object-cover" %>
+                <% end %>
+                <p class="mt-6 font-medium text-gray-800">
+                  <%= product.name %>
+                </p>
+              </div>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
   </div>
 </div>
