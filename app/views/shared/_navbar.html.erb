@@ -17,8 +17,9 @@
         </div>
         <div class="sm:flex sm:ml-6 items-center justify-center">
           <div class="flex space-x-10">
-            <%= link_to cart_path, class: "text-gray-500 hover:underline py-2 rounded-md text-md font-medium" do %>
-              <%= icon 'fa-solid', 'shopping-cart' %>
+            <%= link_to cart_path, class: "text-gray-500 hover:underline py-2 rounded-md text-md font-medium relative" do %>
+              <%= icon 'fa-solid', 'shopping-cart', id: 'cart-icon' %>
+              <span id="cart-count" class="absolute bottom-6 left-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs hidden">0</span>
             <% end %>
           </div>
         </div>

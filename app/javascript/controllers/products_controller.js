@@ -7,8 +7,9 @@ export default class extends Controller {
   addToCart() {
     console.log("product: ", this.productValue)
     const cart = localStorage.getItem("cart")
+    let cartArray = []
     if (cart) {
-      const cartArray = JSON.parse(cart)
+      cartArray = JSON.parse(cart)
       const foundIndex = cartArray.findIndex(item => item.id === this.productValue.id && item.size === this.sizeValue)
       if (foundIndex >= 0) {
         cartArray[foundIndex].quantity = parseInt(cartArray[foundIndex].quantity) + 1
@@ -21,9 +22,7 @@ export default class extends Controller {
           quantity: 1
         })
       }
-      localStorage.setItem("cart", JSON.stringify(cartArray))
     } else {
-      const cartArray = []
       cartArray.push({
         id: this.productValue.id,
         name: this.productValue.name,
@@ -31,13 +30,28 @@ export default class extends Controller {
         size: this.sizeValue,
         quantity: 1
       })
-      localStorage.setItem("cart", JSON.stringify(cartArray))
     }
+    localStorage.setItem("cart", JSON.stringify(cartArray))
+    this.updateCartIcon()
   }
 
   selectSize(e) {
     this.sizeValue = e.target.value
     const selectedSizeEl = document.getElementById("selected-size")
     selectedSizeEl.innerText = `Selected Size: ${this.sizeValue}`
+  }
+
+  updateCartIcon() {
+    const cart = JSON.parse(localStorage.getItem("cart"))
+    const cartCount = cart.reduce((acc, item) => acc + item.quantity, 0)
+    const cartIcon = document.getElementById("cart-icon")
+    const cartCountEl = document.getElementById("cart-count")
+    cartIcon.classList.add("text-red-500")
+    cartCountEl.innerText = cartCount
+    if (cartCount === 0) {
+      cartCountEl.classList.add("hidden")
+    } else {
+      cartCountEl.classList.remove("hidden")
+    }
   }
 }
