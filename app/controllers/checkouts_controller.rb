@@ -7,6 +7,11 @@ class CheckoutsController < ApplicationController
       product = Product.find(item["id"])
       product_stock = product.stocks.find { |ps| ps.size == item["size"] }
 
+      if product_stock.nil?
+        render json: { error: "Stock not found for #{product.name} in size #{item["size"]}." }, status: 400
+        return
+      end
+
       if product_stock.amount < item["quantity"].to_i
         render json: { error: "Not enough stock for #{product.name} in size #{item["size"]}. Only #{product_stock.amount} left." }, status: 400
         return
