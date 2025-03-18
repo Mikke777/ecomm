@@ -1,10 +1,14 @@
 import { Controller } from "@hotwired/stimulus"
 
-// Connects to data-controller="products"
 export default class extends Controller {
   static values = { size: String, product: Object }
 
   addToCart() {
+    if (!this.sizeValue) {
+      this.displayError("Please select a size")
+      return
+    }
+
     console.log("product: ", this.productValue)
     const cart = localStorage.getItem("cart")
     let cartArray = []
@@ -53,5 +57,11 @@ export default class extends Controller {
     } else {
       cartCountEl.classList.remove("hidden")
     }
+  }
+
+  displayError(message) {
+    const errorEl = document.getElementById("error-message")
+    errorEl.innerText = message
+    errorEl.classList.remove("hidden")
   }
 }
