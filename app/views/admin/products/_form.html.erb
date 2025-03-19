@@ -24,7 +24,7 @@
   <div class="my-5">
     <% if admin_product.persisted? && admin_product.images.any? %>
       <% admin_product.images.each do |image| %>
-        <%= image_tag image, class: "w-20 h-20 object-cover rounded-md" %>
+        <%= image_tag url_for(image), class: "w-20 h-20 object-cover rounded-md" %>
       <% end %>
     <% end %>
     <%= form.label :images %>
